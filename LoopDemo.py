@@ -23,4 +23,6 @@ str = "MONKEY"
 for i in range(len(str)-1,-1,1):
 	print(str[i])
 
-credit
+
+print(******"Print Every Second Letter In Str Start At Index 0******")
+for 
