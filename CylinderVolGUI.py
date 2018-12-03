@@ -1,6 +1,6 @@
 import tkinter as tk
 import math
-def submit():
+def submit(): 
 
 	print("Submit pressed")
 	r = float(entr.get())
