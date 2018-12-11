@@ -5,15 +5,7 @@ root = tk.Tk()
 root.title("Bowel Movement Tracker")
 root.configure(background="mediumslateblue")
 
-
-def submit():
-	print("Submit Pressed")
-	list.append(slide1.get())
-	list.append(slide2.get())
-	list.append(slide3.get())
-	list.append(ent1.get())
-	list.append(ent2.get())
-
+#--------------Define Record---------------------
 def record():
 	print("Record Pressed")
 	list.append(ent1.get())
@@ -25,6 +17,32 @@ def record():
     	#print (str(list[x]))
     	#textbox0.insert(list[x])
 
+#----------------Define Submit--------------------------
+def submit():
+	print("Submit Pressed")
+	list.append(slide1.get())
+	list.append(slide2.get())
+	list.append(slide3.get())
+	list.append(ent1.get())
+	list.append(ent2.get())
+#-----------------If Statements & Else If Statements----------------
+	textboxRESULT.insert(tk.INSERT, "The average bowel movements per week is between 3 - 2" + "\n")
+	if slide1.get() <= 3:
+		textboxRESULT.insert(tk.INSERT, "Your bowel movements per week is WAY BELOW average. It is likely that you are constipated." + "\n")
+	elif slide1.get() <= 7 and slide1.get() >= 3:
+		textboxRESULT.insert(tk.INSERT, "Your bowel movements per week is lower than average. A possibility is that you may have constipation." + "\n")
+	elif slide1.get() >= 17 and slide1.get() <= 21:
+		textboxRESULT.insert(tk.INSERT, "Your bowel movements per week is higher than average. A possibility is that you may have diarrhea." + "\n")
+	elif slide1.get() >= 21:
+		textboxRESULT.insert(tk.INSERT, "Your bowel movements per week is WAY ABOVE average. It is likely that you have diarrhea" + "\n")
+	else:
+		textboxRESULT.insert(tk.INSERT, "You are in good health (neither constipated or having diarrhea. Keep up the good work.")
+	textboxRESULT.insert(tk.INSERT, "\n" + "The average amount of water drank per week can be from one ounce for every pound that you weigh, to 1/2 ounce for every pound you weigh." + "\n")
+	if (slide2.get() * 33.814) <= (slide3.get() / 2):
+		textboxRESULT.insert(tk.INSERT, "The amount of water that you drink per week is below average. If you are constipated, a suggestion can be to drink more water." + "\n")
+	if (slide2.get() * 33.814) >= (slide3.get()):
+		textboxRESULT.insert(tk.INSERT, "The amount of water that you drink is WAY TOO high. If you have diarrhea, a suggestion would be to decrease amount of water drank." + "\n")
+#----------------Defined Change----------------------------
 def change(*args):
 	print("Button Changed")
 list = []
@@ -97,17 +115,17 @@ ent2.configure(background="lightgray")
 #-------------------- Text Box -----------------
 
 textboxRESULT = tk.Text(root, height = 10, width = 40, borderwidth = 3, relief = tk.GROOVE)
-textboxRESULT.config(state = "disabled")
+#textboxRESULT.config(state = "disabled")
 textboxRESULT.grid(row = 11, column = 2)
-
-if slide1.get() > 21:
-	textboxRESULT.insert(tk.INSERT, "Result: " + str(slide1.get()) + "\n")
 
 textbox0 = tk.Text(root, height = 10, width = 40, borderwidth = 3, relief = tk.GROOVE)
 #textbox0.config(state = "disabled")
 textbox0.grid(row = 11, column = 1)
 #textbox0.insert('1.0', 'insert')
 #-------------------Program--------------------
+
+
+
 
 
 
