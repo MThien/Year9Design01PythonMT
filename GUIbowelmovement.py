@@ -1,10 +1,16 @@
 import tkinter as tk
-
+from tkinter import ttk
 
 root = tk.Tk()
+root.title("Mikey's tabs")
+tabControl = ttk.Notebook(root)
+
 root.title("Bowel Movement Tracker")
 root.configure(background="mediumslateblue")
 
+#--------------Define Close--------------------
+def close_window(): 
+    root.destroy()
 #--------------Define Record---------------------
 def record():
 	print("Record Pressed")
@@ -16,7 +22,15 @@ def record():
 	#for x in range(len(list)): 
     	#print (str(list[x]))
     	#textbox0.insert(list[x])
-
+#--------------Define Reset----------------------
+def reset():
+	print("Reset Pressed")
+	slide1.set("0")
+	slide2.set("0")
+	slide3.set("0")
+	slide4.set("0")
+	textboxRESULT.delete('1.0', tk.END)
+	textbox0.delete('1.0', tk.END)
 #----------------Define Submit--------------------------
 def submit():
 	print("Submit Pressed")
@@ -25,6 +39,8 @@ def submit():
 	list.append(slide3.get())
 	list.append(ent1.get())
 	list.append(ent2.get())
+	list.append(slide4.get())
+	
 #-----------------If Statements & Else If Statements----------------
 	textboxRESULT.insert(tk.INSERT, "The average bowel movements per week is between 3 - 2" + "\n")
 	if slide1.get() <= 3:
@@ -38,15 +54,27 @@ def submit():
 	else:
 		textboxRESULT.insert(tk.INSERT, "You are in good health (neither constipated or having diarrhea. Keep up the good work.")
 	textboxRESULT.insert(tk.INSERT, "\n" + "The average amount of water drank per week can be from one ounce for every pound that you weigh, to 1/2 ounce for every pound you weigh." + "\n")
-	if (slide2.get() * 33.814) <= (slide3.get() / 2):
+	if (slide2.get() * 33.814) <= ((slide3.get() / 2) * 7):
 		textboxRESULT.insert(tk.INSERT, "The amount of water that you drink per week is below average. If you are constipated, a suggestion can be to drink more water." + "\n")
-	if (slide2.get() * 33.814) >= (slide3.get()):
+	if (slide2.get() * 33.814) >= (slide3.get() * 7):
 		textboxRESULT.insert(tk.INSERT, "The amount of water that you drink is WAY TOO high. If you have diarrhea, a suggestion would be to decrease amount of water drank." + "\n")
+	else:
+		textboxRESULT.insert(tk.INSERT,"The amount of water that you drink is healthy. Keep maintaining your water intake." + "\n")
+	if slide4.get() <= 2:
+		textboxRESULT.insert(tk.INSERT,"Try to aim for eating 19 grams of fibers")
+	elif slide4.get() <=8:
+		textboxRESULT.insert(tk.INSERT,"Try to aim for eating 25 grams of fibers.")
+	elif slide4.get() <= 13:
+		textboxRESULT.insert(tk.INSERT,"Try to aim for eating 31 grams of fibers.")
+	elif slide4.get() <= 50:
+		textboxRESULT.insert(tk.INSERT,"Try to aim for eating 38 grams of fibers.")
+	elif slide4.get() > 50:
+		textboxRESULT.insert(tk.INSERT,"Try to aim for eating 30 grams of fibers.")
 #----------------Defined Change----------------------------
 def change(*args):
 	print("Button Changed")
 list = []
-#------------------- LABELS -------------------
+#------------------- Labels -------------------
 label00 = tk.Label(root, text = "", background = "darkslateblue")
 label00.grid(row = 0, column = 0, sticky = "NESW")
 
@@ -68,11 +96,14 @@ label4.grid(row = 7, column = 0, sticky = "NESW")
 label5 = tk.Label(root, text = "Amount of Fibers in food (grams)", background = "darkslateblue", foreground = "white", height = 2)
 label5.grid (row = 9, column = 0, sticky = "NESW")
 
-label6 = tk.Label(root, text = "", background = "darkslateblue")
-label6.grid(row = 10, column = 0, sticky = "NESW")
+label6 = tk.Label(root, text = "Age", background = "darkslateblue", foreground = "white")
+label6.grid(row = 6, column = 0, sticky = "NESW")
 
 labelfiller = tk.Label(root, text = "", background = "darkslateblue")
-labelfiller.grid(row = 11, column = 0, sticky = "NESW")
+labelfiller.grid(row = 12, column = 0, sticky = "NESW")
+
+labelfiller0 = tk.Label(root, text = "", background = "darkslateblue")
+labelfiller0.grid(row = 11, column = 0, sticky = "NESW")
 
 labelfiller2 = tk.Label(root, text = "", background = "darkslateblue")
 labelfiller2.grid(row = 0, column = 2, sticky = "NESW")
@@ -91,17 +122,25 @@ slide3 = tk.Scale(root, from_=0, to=300, resolution= 1, length = 300, tickinterv
 slide3.grid(row = 5, column = 1)
 slide3.configure(background="mediumslateblue", foreground = "white")
 
+slide4 = tk.Scale(root, from_=0, to=120, resolution = 1, length = 300, tickinterval = 20, orient = tk.HORIZONTAL)
+slide4.grid(row = 6, column = 1)
+slide4.configure(background="mediumslateblue", foreground = "white")
 #-------------------- Buttons ------------------
 
 btnsubmit = tk.Button(root, text = "Submit", command = submit, height = 2, width = 10)
-btnsubmit.grid (row = 10, column = 2)
+btnsubmit.grid (row = 11, column = 2)
 btnsubmit.configure(background="mediumslateblue")
 
 btnrecord = tk.Button(root, text = "Record", command = record, height = 2, width = 10)
-btnrecord.grid (row = 10, column = 1)
+btnrecord.grid (row = 11, column = 1)
 btnrecord.configure(background="mediumslateblue")
 
+btnclose = tk.Button(root, text = "Close", command = close_window, height = 1, width = 5)
+btnclose.grid (row = 0, column = 2, sticky = "E")
+btnclose.configure(background = "mediumslateblue")
 
+btnreset = tk.Button(root, text = "Reset", command = reset, height = 1, width = 5)
+btnreset.grid(row = 0, column = 2)
 #-------------------- Food Eaten ---------------
 
 ent1 = tk.Entry(root)
@@ -115,24 +154,12 @@ ent2.configure(background="lightgray")
 #-------------------- Text Box -----------------
 
 textboxRESULT = tk.Text(root, height = 10, width = 40, borderwidth = 3, relief = tk.GROOVE)
-#textboxRESULT.config(state = "disabled")
-textboxRESULT.grid(row = 11, column = 2)
+textboxRESULT.grid(row = 12, column = 2)
 
 textbox0 = tk.Text(root, height = 10, width = 40, borderwidth = 3, relief = tk.GROOVE)
 #textbox0.config(state = "disabled")
-textbox0.grid(row = 11, column = 1)
+textbox0.grid(row = 12, column = 1)
 #textbox0.insert('1.0', 'insert')
-#-------------------Program--------------------
-
-
-
-
-
-
-
-
-
-
 
 
 
